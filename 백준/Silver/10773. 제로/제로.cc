@@ -1,32 +1,43 @@
-#include <bits/stdc++.h>
+#include <algorithm>
+#include <iostream>
+#include <stack>
+
 using namespace std;
 
-vector<int> s;
+int N, num;
+long result = 0;
+stack<int> st;
 
-int main(){
-    ios_base::sync_with_stdio(false);
-    cin.tie(NULL);
-    cout.tie(NULL);
+void Solve() {
+  cin >> N;
 
-    int n, result=0;
-    cin>>n;
+  // stack up
+  while (N--) {
+    cin >> num;
 
-    for(int i=0;i<n;i++)
-    {
-        int temp;
-        cin>>temp;
-
-        if(temp)
-            s.push_back(temp);
-        else
-            s.pop_back();
-
+    if (num == 0) {
+      st.pop();
+      continue;
     }
 
-    for(int i=0;i<s.size();i++)
-        result+=s[i];
-    
-    cout<<result;
-    
-    return 0;
+    st.push(num);
+  }
+
+  // calculate a result
+  while (!st.empty()) {
+    result += st.top();
+    st.pop();
+  }
+
+  cout << result;
+}
+
+int main() {
+  ios_base::sync_with_stdio(false);
+  cin.tie(NULL);
+  cout.tie(NULL);
+
+  Solve();
+
+  return 0;
 }
