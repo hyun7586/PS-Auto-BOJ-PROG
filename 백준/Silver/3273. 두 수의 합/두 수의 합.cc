@@ -1,41 +1,42 @@
-#include <bits/stdc++.h>
+#include <algorithm>
+#include <iostream>
+#include <vector>
+
 using namespace std;
 
-int main()
-{
-    ios_base::sync_with_stdio(false);
-    cin.tie(NULL);
-    cout.tie(NULL);
+int N, X, cnt = 0;
+int a[100005] = {0};
+bool isPresent[1000005] = {false};
 
-    int n, x;
-    long long cnt = 0;
-    scanf("%d", &n);
+void Solve() {
+  // initial input
+  cin >> N;
 
-    int *arr = new int[n];
-    for (int i = 0; i < n; i++)
-        scanf("%d", &arr[i]);
+  for (int i = 0; i < N; i++) {
+    cin >> a[i];
+    isPresent[a[i]] = true;
+  }
 
-    scanf("%d", &x);
+  cin >> X;
 
-    sort(arr, arr + n);
+  // check if `X-a[i]` exists
+  for (int i = 0; i < N; i++) {
+    if (X - a[i] >= 1000000 || X - a[i] == a[i] || X - a[i] < 0) continue;
 
-    int left = 0, right = n - 1;
-    while (left < right)
-    {
-        long long temp = arr[left] + arr[right];
-        if (temp < x)
-            left += 1;
-        else if (temp == x)
-        {
-            cnt += 1;
-            left += 1;
-            // right -= 1;
-        }
-        else if (temp > x)
-            right -= 1;
+    if (isPresent[X - a[i]]) {
+      cnt++;
     }
+  }
 
-    printf("%d", cnt);
+  // print cnt
+  cout << cnt / 2;
+}
 
-    return 0;
+int main() {
+  ios_base::sync_with_stdio(false);
+  cin.tie(NULL);
+
+  Solve();
+
+  return 0;
 }
